@@ -5,6 +5,7 @@ public class KonversiNumber {
 
         //otomatis
         byte iniByte = 10;
+//        String result = new String(iniByte);
         short iniShort = iniByte;;
         int iniInt = iniShort;
         long iniLong = iniInt;

@@ -43,7 +43,9 @@ public class Array {
 
         //access members, array in array
         System.out.println(members[0][1]);
-        System.out.println(members);
+//        System.out.println(members);
 
+        String name = "ihsan";
+        System.out.println(name.charAt(0));
     }
 }

@@ -4,6 +4,9 @@ public class Variable {
         String name;
         name = "Eko Kurniawan Khannedy";
 
+        Integer kota = null;
+        System.out.println(kota);
+
         System.out.println(name);
 
         int age = 30;

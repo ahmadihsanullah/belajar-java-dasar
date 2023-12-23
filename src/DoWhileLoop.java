@@ -6,7 +6,7 @@ public class DoWhileLoop {
         do {
             System.out.println("Perulangan ke-" + counter);
             counter++;
-        } while (counter <= 10);
+        } while (counter <= 1);
 
     }
 }

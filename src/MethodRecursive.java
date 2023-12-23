@@ -1,8 +1,18 @@
+import java.util.Scanner;
+
 public class MethodRecursive {
     public static void main(String[] args) {
         System.out.println(factorial(5));
         System.out.println(factorialWithRecursive(5));
-        loop(10000);
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Masukan Nilai : ");
+        var nilai = scanner.nextInt();
+        int jumlah = jumlahNilai(nilai);
+        System.out.println("Jumlah nilai : " + jumlah);
+
+        int jumlahFactorial = factorialKeDua(nilai);
+        System.out.println("jumlah Factorial : " + jumlahFactorial);
+//        loop(10000); stack overflow
     }
 
     static int factorial(int value){
@@ -10,6 +20,10 @@ public class MethodRecursive {
 
         for(var counter = 1 ; counter <= value; counter++){
             result *= counter;
+        }
+
+        for (var counter = value; counter >= 1; counter-- ){
+            result*= counter;
         }
         return  result;
     }
@@ -35,4 +49,19 @@ public class MethodRecursive {
             loop(value - 1);
         }
     }
+
+    private static int jumlahNilai(int value){
+        if(value == 0){
+            return value;
+        }
+        return value + jumlahNilai(value - 1);
+    }
+
+    private static int factorialKeDua(int value){
+        if(value == 1){
+            return value;
+        }
+        return value * factorialKeDua(value - 1);
+    }
+
 }

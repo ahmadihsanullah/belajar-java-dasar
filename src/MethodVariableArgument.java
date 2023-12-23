@@ -2,8 +2,9 @@ public class MethodVariableArgument {
     public static void main(String[] args) {
         int[] values = {80,90,95,88,82};
 
-        sayCongrats("Ihsan", values);
+        MethodVariableArgument.sayCongrats("Ihsan", values);
         sayCongratsWithVariableArguments("Budi", 80,90,100,78,100,99,61);
+        sayCongratsWithVariableArguments("Budi", values);
     }
 
     static void sayCongrats(String name, int[] values){

@@ -1,4 +1,5 @@
 import java.util.Formatter;
+import java.util.Scanner;
 public class StringFormat {
 
     public static void main(String[] args) {
@@ -34,6 +35,7 @@ public class StringFormat {
         // [width]
         System.out.println("\n[width]");
         int int3 = 1000;
+
         System.out.println("INTEGER");
         System.out.printf("%d\n",int3);
         System.out.printf("%5d\n",int3);
@@ -42,7 +44,7 @@ public class StringFormat {
         System.out.printf("%+-6d\n",int3); // flags bisa digabungkan
         System.out.printf("%10d\n",int3);
         System.out.printf("% 10d\n",int3);
-        System.out.printf("%010d\n",int3); // flags = "0", kita tambahkan leading "0" didepan
+        System.out.printf("%05d\n",int3); // flags = "0", kita tambahkan leading "0" didepan
         System.out.printf("%+010d\n",int3);
         int int4 = 1000000000;
         System.out.printf("%-,15d\n",int4); // flags = ",", menandakan delimeter per seribu

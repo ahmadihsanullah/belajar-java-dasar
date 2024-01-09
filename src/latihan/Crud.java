@@ -134,7 +134,7 @@ class Crud {
     private static void tambahData() throws IOException {
 
         FileWriter fileOutput = new FileWriter("Database.txt");
-        BufferedWriter bufferedWriter = new BufferedWriter(fileOutput);
+        BufferedWriter bufferOutput = new BufferedWriter(fileOutput);
 
         // mengambil input dari user
         Scanner terminalInput = new Scanner(System.in);
@@ -147,7 +147,7 @@ class Crud {
         System.out.print("Masukan nama penerbit: ");
         penerbit = terminalInput.nextLine();
         System.out.print("Masukan nama tahun terbit: ");
-        tahun = terminalInput.nextLine();
+        tahun = ambilTahun();
 
         // cek buku didatabase
         String[] keywords = {tahun+","+penulis+","+penerbit+","+judul};
@@ -159,10 +159,35 @@ class Crud {
 
         if(!isExist){
             // fiersabesari_2012_1,2012,fiersa besari,media kita,jejak langkah
-            System.out.println("bukunya benlum ada");
+            // System.out.println(ambilEntryPerTahun(penulis, tahun));
+            // long nomorEntry = ambilEntryPerTahun(penulis, tahun) + 1;
+            long nomorEntry = 0;
+
+            String penulisTanpaSpasi = penulis.replaceAll("\\s+","");
+            String primaryKey = penulisTanpaSpasi+"_"+tahun+"_"+nomorEntry;
+            System.out.println("\nData yang akan anda masukan adalah");
+            System.out.println("----------------------------------------");
+            System.out.println("primary key  : " + primaryKey);
+            System.out.println("tahun terbit : " + tahun);
+            System.out.println("penulis      : " + penulis);
+            System.out.println("judul        : " + judul);
+            System.out.println("penerbit     : " + penerbit);
+            boolean isTambah = getYesorNo("Apakah akan ingin menambah data tersebut? ");
+            // masukan buku ke database
+
+            if(isTambah){
+                bufferOutput.write(primaryKey + "," + tahun + ","+ penulis +"," + penerbit + ","+judul);
+                bufferOutput.newLine();
+                bufferOutput.flush();
+            }
+
+        }else{
+            System.out.println("buku yang anda akan masukan sudah tersedia di database dengan data berikut:");
+            cekBukuDiDatabase(keywords,true);
         }
 
-        // masukan buku ke database
+        bufferOutput.close();
+
 
     }
 

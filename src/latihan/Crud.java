@@ -133,7 +133,7 @@ class Crud {
 
     private static void tambahData() throws IOException {
 
-        FileWriter fileOutput = new FileWriter("Database.txt");
+        FileWriter fileOutput = new FileWriter("Database.txt", true);
         BufferedWriter bufferOutput = new BufferedWriter(fileOutput);
 
         // mengambil input dari user
@@ -160,8 +160,8 @@ class Crud {
         if(!isExist){
             // fiersabesari_2012_1,2012,fiersa besari,media kita,jejak langkah
             // System.out.println(ambilEntryPerTahun(penulis, tahun));
-            // long nomorEntry = ambilEntryPerTahun(penulis, tahun) + 1;
-            long nomorEntry = 0;
+            long nomorEntry = ambilEntryPerTahun(penulis, tahun) + 1;
+            
 
             String penulisTanpaSpasi = penulis.replaceAll("\\s+","");
             String primaryKey = penulisTanpaSpasi+"_"+tahun+"_"+nomorEntry;
@@ -187,8 +187,36 @@ class Crud {
         }
 
         bufferOutput.close();
+    }
 
+    private static long ambilEntryPerTahun(String penulis, String tahun) throws IOException{
+        //membaca database
+        FileReader fileInput = new FileReader("Database.txt");
+        BufferedReader bufferInput = new BufferedReader(fileInput);
 
+        long entry = 0;
+        String data = bufferInput.readLine();
+        Scanner dataScanner;
+        String primaryKey;
+
+        while(data!=null){
+            dataScanner = new Scanner(data);
+            dataScanner.useDelimiter(",");
+            primaryKey = dataScanner.next(); //dapat primary key
+            dataScanner = new Scanner(primaryKey); //baca primary key dan dipisah menggunakan '_'
+            dataScanner.useDelimiter("_");
+
+            penulis = penulis.replaceAll("\\s+","");
+            //karena sudah di next sebelumnya, maka berpindah di next selanjutnya
+            if (penulis.equalsIgnoreCase(dataScanner.next()) && tahun.equalsIgnoreCase(dataScanner.next()) ) {
+                entry = dataScanner.nextInt();
+            }
+
+            data = bufferInput.readLine();
+        }
+
+        return entry;
+        
     }
 
     private static String ambilTahun() throws IOException {

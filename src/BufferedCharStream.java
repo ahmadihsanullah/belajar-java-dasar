@@ -38,10 +38,14 @@ public class BufferedCharStream{
         bufferedWriter.flush();
 
         // menambah new line, enter;
-        // bufferedWriter.newLine();
+        bufferedWriter.newLine();
 
         String baris2 = bufferedReader.readLine();
         bufferedWriter.write(baris2,0,baris2.length());
+        bufferedWriter.flush();
+
+        String baris3 = "ahmad ihsanullah";
+        bufferedWriter.write(baris3,0,baris3.length());
         bufferedWriter.flush();
 
         bufferedReader.close();

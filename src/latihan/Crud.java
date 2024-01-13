@@ -50,6 +50,7 @@ class Crud {
                         System.out.println("================");
                         // tambah data
                         tambahData();
+                        tambahData();
                         break;
                     case "4":
                         System.out.println("\n==============");
@@ -62,6 +63,7 @@ class Crud {
                         System.out.println("HAPUS DATA BUKU");
                         System.out.println("===============");
                         // hapus data
+                        hapusData();
                         break;
                     default:
                         System.err.println("\nInput anda tidak ditemukan\nSilahkan pilih [1-5]");
@@ -70,6 +72,73 @@ class Crud {
                 isLanjutkan = getYesorNo("Apakah Anda ingin melanjutkan");
             }
         }
+    }
+
+    private static void hapusData() throws IOException {
+        //membaca database original
+        File database = new File("database.txt");
+        FileReader fileInput = new FileReader(database);
+        BufferedReader bufferedInput = new BufferedReader(fileInput);
+
+        //membuat database temporary
+        File tempDB = new File("tempDB.txt");
+        FileWriter fileOutput = new FileWriter(tempDB);
+        BufferedWriter bufferedOutput = new BufferedWriter(fileOutput);
+
+        //tampilkan data
+        System.out.println("List Buku");
+        tampilkanData();
+
+        //kita ambil user input berupa data yang ingin dihapus
+        Scanner terminalInput = new Scanner(System.in);
+        System.out.println("\nMasukan no buku yang akan dihapus: ");
+        int deleteNumber = terminalInput.nextInt();
+
+        //looping tiap data untuk membaca tiap baris dan skip data yang didelete
+        boolean isFound = false;
+        int entryCounts = 0;
+
+        String data = bufferedInput.readLine();
+
+        while(data!=null){
+            entryCounts++;
+            boolean isDelete = false;
+
+            StringTokenizer st = new StringTokenizer(data,",");
+            
+            if(deleteNumber == entryCounts){
+                System.out.println("\nData yang ingin anda hapus");
+                System.out.println("-----------------------");
+                System.out.println("Referensi       : "+ st.nextToken());
+                System.out.println("Tahun           : "+ st.nextToken());
+                System.out.println("Penulis         : "+ st.nextToken());
+                System.out.println("Penerbit        : "+ st.nextToken());
+                System.out.println("Judul           : "+ st.nextToken());
+
+                isDelete = getYesorNo("Apakah anda yakin akan menghapus?");
+                isFound = true;
+            }
+
+            if(isDelete){
+                //skip pindahkan data dari original ke sementara
+                System.out.println("Data berhasil dihapus");
+            }else{
+                //kita pindahkan ke temporary, skip yang dia pilih
+                bufferedOutput.write(data);
+                bufferedOutput.newLine();
+            }
+            data = bufferedInput.readLine();
+        }
+        if(!isFound){
+            System.out.println("Buku tidak ditemukan");
+        }
+
+        //menulis ke database temporary
+        bufferedOutput.flush();
+        //delete database original
+        database.delete();
+        //rename database temporary ke original
+        tempDB.renameTo(database);
     }
 
     private static void tampilkanData() throws IOException {
@@ -82,6 +151,7 @@ class Crud {
         } catch (Exception e) {
             System.err.println("Database tidak ditemukan");
             System.err.println("Silahkan tambahkan database terlebih dahulu");
+            tambahData();
             return;
         }
 
@@ -118,6 +188,7 @@ class Crud {
         } catch (Exception e) {
             System.err.println("Database tidak ditemukan");
             System.err.println("Silahkan tambahkan database terlebih dahulu");
+            tambahData();
             return;
         }
         // kita ambil keyword dari user
@@ -146,7 +217,7 @@ class Crud {
         judul = terminalInput.nextLine();
         System.out.print("Masukan nama penerbit: ");
         penerbit = terminalInput.nextLine();
-        System.out.print("Masukan nama tahun terbit: ");
+        System.out.print("Masukan tahun terbit: ");
         tahun = ambilTahun();
 
         // cek buku didatabase
@@ -280,10 +351,12 @@ class Crud {
                     break;
                 }
             }
-
             data = bufferInput.readLine();
         }
 
+        if(!isExist){
+            System.out.println("Data tidak ditemukan");
+        }
         if (isDisplay){
             System.out.println("----------------------------------------------------------------------------------------------------------");
         }

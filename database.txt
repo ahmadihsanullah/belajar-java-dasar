@@ -6,5 +6,3 @@ faqihza_2019_2,2019,faqihza,gramedia,belajar python
 faqihza_2019_3,2019,faqihza,gramedia,belajar Java
 ucup_2020_1,2020,Ucup Surucup,kompas,Cara sukses mencari belut di sawah
 ahmad_2022_0,2022,ahmad,gramedia,belajar mysql
-ahmad_2018_0,2018,ahmad,gramedia,belajar java
-hanif_2023_1,2023,hanif,gramedia,belajar CSS
